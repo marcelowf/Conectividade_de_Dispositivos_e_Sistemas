@@ -1,0 +1,48 @@
+Neste trabalho 2, que pode ser feito com a mesma equipe do projeto 1, será implementada uma aplicação simples utilizando o paradigma PRODUTOR-CONSUMIDOR tipicamente usado na construção de aplicações IoT. 
+
+--> A defesa do relatório será no mesmo horário da defesa do projeto 2
+
+Você irá instalar um servidor broker MQTT open-source Mosquitto numa VM e implementar uma aplicação simples em Python para desempenhar o papel do produtor e outra do consumidor. Capturas do wireshark precisarão ser feitas e análises correspondentes.
+
+1) Download VM do linux para instalar o Mosquitto:  https://pucpredu-my.sharepoint.com/:u:/g/personal/ricardo_nabhen_pucpr_br/ET7GWrK5CIZMizLa-Kqq84kBGu_kVlmXZ6BOTZqHZR7pKA?e=Tyc4ODLinks para um site externo.
+
+2) Coloque a placa de rede no modo NAT ou Bridge. Use o Virtual Box. Usuário e senha: PC/PC
+
+3) As operações abaixo serão executadas no shell do Linux:
+
+$ sudo apt-get update -y
+
+$ sudo apt-get install wireshark -y
+
+$ sudo apt-get install python3-paho-mqtt
+
+$ sudo  apt-get install mosquitto -y
+
+$ sudo apt-get install mosquitto-clients -y
+
+$ sudo systemctl status mosquitto
+
+4) Até aqui, você está com o ambiente preparado para rodar a aplicação IoT alvo simplificada . Use python tanto para escrever o módulo produtor quanto o consumidor. Ambas as aplicações podem ser executadas na mesma VM para facilitar os testes.
+
+5) Descrição do cenário:
+
+SmartAgriculture:
+
+Contexto: Sistema de monitoramento de variáveis ambientais
+Rode a aplicação (sensor e coletor) analise as mensagens e capturas e entregue um relatório com:
+Relatório:
+
+anexar capturas wireshark da comunicação do sensor e do coletor explicando qual a estrutura de encapsulamento de protocolos.
+justifique os endereços IP e Porta de origem e destino e os protocolos de transporte e aplicação observados.
+crie um diagrama de sequência de mensagens do protocolo de aplicação.
+prints de tela mostrando resultados de operação dos dois módulos.
+prints de tela com o "$ netstat -n" mostrando os sockets estabelecidos. explique o socket observado.
+Link ferramenta para diagramas de sequência: diagramaLinks para um site externo.
+
+para rodar o wireshark:  $sudo wireshark
+
+para rodar o sensor e o coletor:
+
+$python3 sensor         
+
+$python3 coletor

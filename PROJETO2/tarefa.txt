@@ -1,0 +1,46 @@
+Como a aplicação terá seu código baseado nos arquivos C disponibilizados em anexo, rodar e analisar os sockets estabelecidos pelas aplicações cliente e servidor em anexo. Anexe capturas wireshark, explique a estrutura de encapsulamento e endereços IPs e portas utilizados nas portas. Além disto, rode o utilitário netstat e anexe um print. Estas informações deverão fazer parte do relatório da sua equipe
+
+Attachments
+servidorTCP.c
+clienteTCP.c
+
+Na VM, para garantir a instalação do gcc e das libs do md5 e sha-1:
+
+$ sudo apt update -y
+
+$ sudo apt install gcc -y
+$ sudo apt install build-essential -y
+
+$ sudo apt install libssl-dev -y
+
+Cenário: A aplicação envolve um "serviço" simplificado de geração de HASH
+
+Implementar um servidor que recebe um payload (texto) e uma escolha de algoritmo (HASH 1: MD5 ou HASH 2: SHA-1) pelo cliente, calcula o hash correspondente e retorna o resultado em hexadecimal.
+
+@1.png
+
+Defesas
+
+- cada estudante receberá um horário para apresentar seu projeto no dia 23/06 ou 24/06
+- nota da atividade compreende: a nota pelo projeto entregue (30%) e a defesa individual com base nas perguntas feitas (70%)
+- junto com os arquivos fontes finalizados, você deve entregar um documento com as seguintes informações:
+
+1) justificativa do protocolo de transporte utilizado
+2) indicação das mensagens do seu "protocolo de aplicação" utilizado. especificar, a sintaxe (códigos/nome das mensagens, seus parâmetros e como são formatados) e a semântica.
+3) uma captura wireshark do socket que mostra a comunicação das aplicações e descrição do encapsulamento.
+4) esboço (desenho) da arquitetura da solução de conectividade com a indicação das entidades, arquitetura de rede e protocolos
+
+para compilar o servidor, considere incluir a bilbioteca crypto:  $ gcc server.c -o server -l crypto
+para compilar o cliente:  $ gcc client.c -o client
+
+no cliente: trecho que passa a frase para o servidor e recebe de volta criptografado:
+
+@2.png
+
+Detalhamento das mensagens do seu protocolo para o relatório:
+
+@3.png
+
+Recomendamos o uso da estratégia abaixo para implementar o "serviço" de hashing no programa do servidor: hash_exemplo.cBaixar hash_exemplo.c
+
+Para facilitar, segue abaixo um exemplo de socket TCP com a passagem de parâmetro de LOGIN e senha, e a correspondente troca mensagem com a autenticação do cliente: servidor.cBaixar servidor.c cliente.cBaixar cliente.c
