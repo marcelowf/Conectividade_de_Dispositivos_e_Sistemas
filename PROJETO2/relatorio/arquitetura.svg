@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="660" viewBox="0 0 960 660" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#334155"/>
+    </marker>
+    <marker id="arrowR" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M8,0 L0,3 L8,6 Z" fill="#334155"/>
+    </marker>
+  </defs>
+
+  <!-- fundo -->
+  <rect x="0" y="0" width="960" height="660" fill="#f8fafc"/>
+
+  <!-- titulo -->
+  <text x="480" y="40" text-anchor="middle" font-size="22" font-weight="bold" fill="#0f172a">
+    Arquitetura da Solução — Serviço de geração de HASH (TCP/IP)
+  </text>
+
+  <!-- caixa da VM (host) -->
+  <rect x="40" y="70" width="880" height="300" rx="12" fill="#eef2ff" stroke="#6366f1" stroke-width="2" stroke-dasharray="8 5"/>
+  <text x="60" y="95" font-size="15" font-weight="bold" fill="#4338ca">Máquina Virtual (Linux) — comunicação via interface loopback (127.0.0.1)</text>
+
+  <!-- CLIENTE -->
+  <rect x="80" y="125" width="300" height="210" rx="10" fill="#ffffff" stroke="#0ea5e9" stroke-width="2"/>
+  <text x="230" y="153" text-anchor="middle" font-size="17" font-weight="bold" fill="#0369a1">CLIENTE</text>
+  <text x="230" y="174" text-anchor="middle" font-size="13" fill="#64748b">(client.c)</text>
+  <line x1="100" y1="186" x2="360" y2="186" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="100" y="210" font-size="13" fill="#334155">• socket(AF_INET, SOCK_STREAM)</text>
+  <text x="100" y="232" font-size="13" fill="#334155">• connect() → 127.0.0.1:9999</text>
+  <text x="100" y="254" font-size="13" fill="#334155">• send() / recv()</text>
+  <text x="100" y="276" font-size="13" fill="#334155">• lê usuário/senha e comandos</text>
+  <rect x="100" y="292" width="260" height="30" rx="6" fill="#e0f2fe"/>
+  <text x="230" y="312" text-anchor="middle" font-size="13" fill="#0369a1">Porta efêmera (ex.: 44316)</text>
+
+  <!-- SERVIDOR -->
+  <rect x="580" y="125" width="300" height="210" rx="10" fill="#ffffff" stroke="#10b981" stroke-width="2"/>
+  <text x="730" y="153" text-anchor="middle" font-size="17" font-weight="bold" fill="#047857">SERVIDOR</text>
+  <text x="730" y="174" text-anchor="middle" font-size="13" fill="#64748b">(server.c)</text>
+  <line x1="600" y1="186" x2="860" y2="186" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="600" y="210" font-size="13" fill="#334155">• socket() / bind() / listen()</text>
+  <text x="600" y="232" font-size="13" fill="#334155">• accept() / recv() / send()</text>
+  <text x="600" y="254" font-size="13" fill="#334155">• autentica e calcula o hash</text>
+  <text x="600" y="276" font-size="13" fill="#334155">• OpenSSL EVP: MD5 / SHA-1</text>
+  <rect x="600" y="292" width="260" height="30" rx="6" fill="#d1fae5"/>
+  <text x="730" y="312" text-anchor="middle" font-size="13" fill="#047857">Porta fixa 9999 (LISTEN)</text>
+
+  <!-- conexao entre cliente e servidor -->
+  <line x1="380" y1="220" x2="580" y2="220" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="580" y1="250" x2="380" y2="250" stroke="#334155" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowR)"/>
+  <text x="480" y="212" text-anchor="middle" font-size="12" fill="#334155">LOGIN / HASH 1 / HASH 2 / EXIT</text>
+  <text x="480" y="270" text-anchor="middle" font-size="12" fill="#334155">STATUS 200 / 401 / 400</text>
+  <text x="480" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e293b">Conexão TCP</text>
+
+  <!-- pilha de protocolos -->
+  <text x="480" y="415" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">Encapsulamento — pilha de protocolos (TCP/IP)</text>
+
+  <rect x="180" y="435" width="600" height="38" rx="6" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>
+  <text x="200" y="459" font-size="14" font-weight="bold" fill="#92400e">Aplicação</text>
+  <text x="770" y="459" text-anchor="end" font-size="13" fill="#92400e">Protocolo próprio: LOGIN / HASH / STATUS</text>
+
+  <rect x="180" y="478" width="600" height="38" rx="6" fill="#bbf7d0" stroke="#059669" stroke-width="1.5"/>
+  <text x="200" y="502" font-size="14" font-weight="bold" fill="#065f46">Transporte</text>
+  <text x="770" y="502" text-anchor="end" font-size="13" fill="#065f46">TCP — porta 9999 ↔ porta efêmera</text>
+
+  <rect x="180" y="521" width="600" height="38" rx="6" fill="#bae6fd" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="200" y="545" font-size="14" font-weight="bold" fill="#075985">Rede</text>
+  <text x="770" y="545" text-anchor="end" font-size="13" fill="#075985">IPv4 — origem/destino 127.0.0.1</text>
+
+  <rect x="180" y="564" width="600" height="38" rx="6" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="200" y="588" font-size="14" font-weight="bold" fill="#334155">Enlace / Física</text>
+  <text x="770" y="588" text-anchor="end" font-size="13" fill="#334155">Interface loopback (lo)</text>
+
+  <text x="480" y="635" text-anchor="middle" font-size="12" fill="#64748b">Entidades: processo cliente e processo servidor • Arquitetura: cliente-servidor sobre TCP/IP (loopback)</text>
+</svg>
