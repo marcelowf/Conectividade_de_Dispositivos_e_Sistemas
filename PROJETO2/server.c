@@ -123,8 +123,10 @@ int main(int argc, char *argv[])
         char hash_hex[(EVP_MAX_MD_SIZE * 2) + 1];
 
         /* Recebe mensagens do cliente ate EXIT/desconexao (padrao do servidorTCP.c) */
-        while ((read_size = recv(client_sock, client_message, 2000, 0)) > 0)
+        while ((read_size = recv(client_sock, client_message, sizeof(client_message) - 1, 0)) > 0)
         {
+            client_message[read_size] = '\0'; /* recv nao coloca o terminador */
+
             printf("Cliente mandou: %s\n", client_message);
             fflush(stdout);
 
